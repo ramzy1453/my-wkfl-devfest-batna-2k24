@@ -9,21 +9,12 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import WorkflowBoard from "@/components/workflows/WorkflowBoard";
 import { Instagram, Plus } from "lucide-react";
-
-import { ReactFlow } from "@xyflow/react";
-
-import "@xyflow/react/dist/style.css";
-
-const initialNodes = [
-  { id: "1", position: { x: 0, y: 0 }, data: { label: "1" } },
-  { id: "2", position: { x: 0, y: 100 }, data: { label: "2" } },
-];
-const initialEdges = [{ id: "e1-2", source: "1", target: "2" }];
 
 export default function WorflowDetails() {
   return (
-    <div className="border border-red-500 flex">
+    <div className="flex space-x-4">
       <Dialog>
         <DialogTrigger asChild>
           <Button variant="outline" size="icon" className="">
@@ -62,13 +53,7 @@ export default function WorflowDetails() {
         </DialogContent>
       </Dialog>
 
-      <div style={{ width: "100vw", height: "100vh" }}>
-        <ReactFlow
-          className="border border-green-900"
-          nodes={initialNodes}
-          edges={initialEdges}
-        />
-      </div>
+      <WorkflowBoard />
     </div>
   );
 }
