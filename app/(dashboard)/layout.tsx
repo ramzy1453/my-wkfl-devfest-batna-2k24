@@ -8,7 +8,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <div className="flex h-screen">
       <DesktopSidebar />
 
-      <div className="flex flex-col flex-1">
+      <div className="flex flex-col flex-[4]">
         <header className="flex items-center justify-between px-6 py-4 h-[50px]">
           <BreadcrumbHeader />
           <div className="flex items-center gap-1">
@@ -19,7 +19,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <Separator className="border-t" />
 
         <main className="flex-1 overflow-auto py-4 container">
-          <div className="text-accent-foreground">{children}</div>
+          <div className="text-accent-foreground p-4">{children}</div>
         </main>
       </div>
     </div>

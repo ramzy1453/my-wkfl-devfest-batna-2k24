@@ -88,10 +88,10 @@ export async function UserWorkflows() {
     );
   }
   return (
-    <div className="space-y-4">
+    <div className="gap-4 grid grid-cols-2">
       {workflows.map((workflow) => (
         <div key={workflow.id} className="bg-accent-foreground rounded-lg p-4">
-          <h1 className="font-bold text-lg">{workflow.name}</h1>
+          <h1 className="font-bold text-background text-lg">{workflow.name}</h1>
           <p className="text-muted-foreground">{workflow.description}</p>
           <p className="text-xs text-muted-foreground">
             {workflow.createdAt.toDateString()}

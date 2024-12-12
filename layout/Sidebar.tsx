@@ -39,14 +39,15 @@ const routes = [
 
 export default function DesktopSidebar() {
   const pathname = usePathname();
-  const activeroute =
-    routes.find(
-      (route) => route.href.length > 0 && pathname.includes(route.href)
-    ) || routes[0];
+  const activeRoute = routes.find(
+    (route) => route.href.length > 0 && pathname.includes(route.href)
+  );
+
+  console.log({ activeRoute });
   return (
     <div
-      className="hidden relative md:block max-w-[250px] h-screen overflow-hidden w-full bg-primary/5 
-    dark:bg-secondary/30 dark:text-foreground border-r-2"
+      className="hidden relative md:block h-screen overflow-hidden bg-primary/5 
+    dark:bg-secondary/30 dark:text-foreground border-r-2 border-red-400 flex-1"
     >
       <div className="flex items-center justify-center gap-2 border-b-[1px] border-separate p-4">
         <Logo />
@@ -59,7 +60,7 @@ export default function DesktopSidebar() {
             href={route.href}
             className={buttonVariants({
               variant:
-                activeroute.href === route.href
+                activeRoute?.href === route.href
                   ? "sidebarActiveItem"
                   : "sidebarItem",
             })}
@@ -81,7 +82,7 @@ export function MobilesSidebar() {
   const [open, setopen] = useState(false);
 
   return (
-    <div className="block border-separate  bg-background md:hidden">
+    <div className="block border-separate bg-background md:hidden">
       <nav className="container flex">
         <Sheet onOpenChange={setopen} open={open}>
           <SheetTrigger asChild>
