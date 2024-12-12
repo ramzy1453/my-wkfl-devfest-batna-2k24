@@ -21,6 +21,7 @@ import Workflowaction from "@/actions/workflowactions/workflowaction";
 
 interface CreateWorkFlowDialogProps {
   triggerText?: string;
+  isPending?: boolean;
 }
 
 function CreateWorkFlowDialog({

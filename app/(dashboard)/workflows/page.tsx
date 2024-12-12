@@ -7,6 +7,7 @@ import CreateWorkFlowDialog from "./_component/CreateWorkFlow";
 import { useQuery } from "@tanstack/react-query";
 import Workflowaction from "@/actions/workflowactions/workflowaction";
 import { QueryObserverResult } from '@tanstack/react-query';
+import Workflowcard from "@/components/workflowcard";
 function WorkflowsPage() {
   return (
     <div className=" flex-1 flex ml-3 flex-col h-full">
@@ -16,7 +17,7 @@ function WorkflowsPage() {
           <p className="text-muted-foreground"> Manage your workflows</p>
         </div>
         <div>
-          <CreateWorkFlowDialog />
+          <CreateWorkFlowDialog  />
         </div>
       </div>
       <div className="h-full py-6">
@@ -38,14 +39,14 @@ function UserworkflowSkeleton() {
 }
 function UserWorkflows() {
   
-  const {data , error, isLoading } = useQuery({
-    queryKey: ["workflows"],
-    queryFn: () => Workflowaction.fetchAll(),
-  });
-  const workflow = data as Workflows[];
-  console.log(workflow);
-  console.log(error);
-  console.log(isLoading);
+  // const {data , error, isLoading } = useQuery({
+  //   queryKey: ["workflows"],
+  //   queryFn: () => Workflowaction.fetchAll(),
+  // });
+  // const workflow = data as Workflows[];
+  // console.log(workflow);
+  // console.log(error);
+  // console.log(isLoading);
   const workflows = [
     {
       id: "1",
@@ -76,7 +77,7 @@ function UserWorkflows() {
     return (
       <Alert variant={"destructive"}>
         <AlertCircle className="w-4 h-4" />
-        <AlertTitle>{error?String(error):"something went wrong"}</AlertTitle>
+        <AlertTitle>err</AlertTitle>
         <AlertDescription>somthing went wrong </AlertDescription>
       </Alert>
     );
@@ -94,20 +95,21 @@ function UserWorkflows() {
             click the button below
           </p>
         </div>
-        <CreateWorkFlowDialog triggerText="create your first  workflow" />
+        <CreateWorkFlowDialog triggerText="create your first  workflow"  />
       </div>
     );
   }
   return (
     <div className="gap-4 grid grid-cols-2">
       {workflows.map((workflow) => (
-        <div key={workflow.id} className="bg-accent-foreground rounded-lg p-4">
-          <h1 className="font-bold text-background text-lg">{workflow.name}</h1>
-          <p className="text-muted-foreground">{workflow.description}</p>
-          <p className="text-xs text-muted-foreground">
-            {workflow.createdAt.toDateString()}
-          </p>
-        </div>
+         <Workflowcard key={workflow.id} workflow={workflow} />
+        //  <div key={workflow.id} className="bg-accent-foreground rounded-lg p-4">
+        //    <h1 className="font-bold text-background text-lg">{workflow.name}</h1>
+        //    <p className="text-muted-foreground">{workflow.description}</p>
+        //    <p className="text-xs text-muted-foreground">
+        //      {workflow.createdAt.toDateString()}
+        //    </p>
+        //  </div>
       ))}
     </div>
   );
