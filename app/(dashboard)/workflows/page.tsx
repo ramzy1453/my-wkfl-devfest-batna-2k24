@@ -5,7 +5,7 @@ import { AlertCircle, InboxIcon } from "lucide-react";
 import React, { Suspense } from "react";
 import CreateWorkFlowDialog from "./_component/CreateWorkFlow";
 
-function page() {
+function WorkflowsPage() {
   return (
     <div className=" flex-1 flex ml-3 flex-col h-full">
       <div className="flex justify-between">
@@ -34,7 +34,7 @@ function UserworkflowSkeleton() {
     </div>
   );
 }
-export async function UserWorkflows() {
+function UserWorkflows() {
   const workflows = [
     {
       id: "1",
@@ -101,4 +101,4 @@ export async function UserWorkflows() {
     </div>
   );
 }
-export default page;
+export default WorkflowsPage;
