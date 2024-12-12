@@ -4,7 +4,9 @@ import { fromUnixTime } from "date-fns";
 import { AlertCircle, InboxIcon } from "lucide-react";
 import React, { Suspense } from "react";
 import CreateWorkFlowDialog from "./_component/CreateWorkFlow";
-
+import { useQuery } from "@tanstack/react-query";
+import Workflowaction from "@/actions/workflowactions/workflowaction";
+import { QueryObserverResult } from '@tanstack/react-query';
 function WorkflowsPage() {
   return (
     <div className=" flex-1 flex ml-3 flex-col h-full">
@@ -35,6 +37,15 @@ function UserworkflowSkeleton() {
   );
 }
 function UserWorkflows() {
+  
+  const {data , error, isLoading } = useQuery({
+    queryKey: ["workflows"],
+    queryFn: () => Workflowaction.fetchAll(),
+  });
+  const workflow = data as Workflows[];
+  console.log(workflow);
+  console.log(error);
+  console.log(isLoading);
   const workflows = [
     {
       id: "1",
@@ -61,16 +72,16 @@ function UserWorkflows() {
       createdAt: fromUnixTime(1630368000),
     },
   ];
-  if (!workflows) {
+  if (!workflows) {//change to workflow
     return (
       <Alert variant={"destructive"}>
         <AlertCircle className="w-4 h-4" />
-        <AlertTitle>Error</AlertTitle>
+        <AlertTitle>{error?String(error):"something went wrong"}</AlertTitle>
         <AlertDescription>somthing went wrong </AlertDescription>
       </Alert>
     );
   }
-  if (workflows.length == 0) {
+  if (workflows.length == 0) {//change to workflow
     return (
       <div className="flex flex-col gap-4 h-full items-center justify-center">
         <div className="rounded-full bg-accent w-20 h-20 flex items-center justify-center">
