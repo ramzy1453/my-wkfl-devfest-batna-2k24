@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# Run the tests
+echo "Running pre-commit..."
+
+# Run the prettier
+npx prettier --check src
+if [ $? -ne 0 ]; then
+  echo "Prettier check failed. Please run 'npm run format' and commit the changes."
+  exit 1
+fi
+
+npx eslint . --fix
+if [ $? -ne 0 ]; then
+  echo "Lint check failed. Please fix the lint errors and commit the changes."
+  exit 1
+fi
+
+
+echo "Pre-commit checks passed."
