@@ -9,7 +9,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import WorkflowBoard from "@/components/workflows/WorkflowBoard";
+import Flow from "@/components/workflows/Flow";
 import { Instagram, Plus } from "lucide-react";
 
 export default function WorflowDetails() {
@@ -53,7 +53,7 @@ export default function WorflowDetails() {
         </DialogContent>
       </Dialog>
 
-      <WorkflowBoard />
+      <Flow />
     </div>
   );
 }
