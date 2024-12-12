@@ -1,70 +1,48 @@
 "use client";
-import { useState, useCallback, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import {
   ReactFlow,
   Controls,
   Background,
-  applyNodeChanges,
-  applyEdgeChanges,
-  useNodesState,
-  useEdgesState,
   OnConnect,
   addEdge,
   SelectionMode,
-  Node,
-  Edge,
+  OnNodesChange,
+  OnEdgesChange,
+  applyNodeChanges,
+  applyEdgeChanges,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import TextUpdaterNode from "./nodes/TextUpdaterNode";
-
-const initialNodes: Node[] = [
-  {
-    id: "1",
-    data: { label: "Hello" },
-    position: { x: 0, y: 0 },
-    type: "input",
-    style: {
-      background: "red",
-      color: "white",
-      border: "1px solid black",
-      borderRadius: "5px",
-      padding: "10px",
-      width: "100px",
-      textAlign: "center",
-      fontSize: "14px",
-      fontWeight: "bold",
-    },
-  },
-  {
-    id: "2",
-    data: { label: "World" },
-    type: "textUpdater",
-    position: { x: 100, y: 100 },
-    style: {
-      background: "red",
-      color: "white",
-      border: "1px solid black",
-      borderRadius: "5px",
-      padding: "10px",
-      width: "100px",
-      textAlign: "center",
-      fontSize: "14px",
-      fontWeight: "bold",
-    },
-  },
-];
-
-const initialEdges: Edge[] = [
-  { id: "1-2", source: "1", target: "2", label: "to the", type: "step" },
-];
+import { useFlow } from "@/store/flow";
 
 function Flow() {
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  // const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+  // const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
+  const nodes = useFlow((state) => state.nodes);
+  const edges = useFlow((state) => state.edges);
+
+  console.log({ ab: nodes });
+  const setNodes = useFlow((state) => state.setNodes);
+  const setEdges = useFlow((state) => state.setEdges);
+
+  const onNodesChange: OnNodesChange = useCallback(
+    (changes) => {
+      setNodes(applyNodeChanges(changes, nodes));
+    },
+    [setNodes, nodes]
+  );
+
+  const onEdgesChange: OnEdgesChange = useCallback(
+    (changes) => {
+      setEdges(applyEdgeChanges(changes, edges));
+    },
+    [setEdges, edges]
+  );
   const onConnect: OnConnect = useCallback(
-    (params) => setEdges((eds) => addEdge(params, eds)),
-    [setEdges]
+    (params) => setEdges(addEdge(params, edges)),
+    [setEdges, edges]
   );
 
   const nodeTypes = useMemo(
@@ -76,7 +54,6 @@ function Flow() {
   return (
     <div
       style={{
-        border: "1px red solid",
         height: "100vh",
         width: "100vw",
       }}
