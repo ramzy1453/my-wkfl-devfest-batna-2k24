@@ -1,9 +1,7 @@
-import BreadcrumbHeader from "@/components/breadcrumbheader";
-import DesktopSidebar from "@/components/Sidebar";
-import { ModeToggle } from "@/components/themetoggle";
+import BreadcrumbHeader from "@/layout/BreadCumbHeader";
+import DesktopSidebar from "@/layout/Sidebar";
 import { Separator } from "@radix-ui/react-context-menu";
-import Link from "next/link";
-import React from "react";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -14,7 +12,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <header className="flex items-center justify-between px-6 py-4 h-[50px]">
           <BreadcrumbHeader />
           <div className="flex items-center gap-1">
-            <ModeToggle />
+            <ThemeToggle />
           </div>
         </header>
 

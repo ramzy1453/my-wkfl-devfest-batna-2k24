@@ -1,13 +1,11 @@
 "use client";
 
-import React, { useCallback, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { CustomDialogHeader } from "@/components/ui/CustomDialogHeader";
 import { Layers2Icon, Loader2 } from "lucide-react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useForm } from "react-hook-form";
-import { CreateWorkflowSchema } from "@/schema/workflow";
-import { z } from "zod";
 import {
   Form,
   FormControl,
@@ -18,10 +16,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Textarea } from "@/components/ui/textarea";
-import { useMutation } from "@tanstack/react-query";
-import { toast } from "sonner";
 
 interface CreateWorkFlowDialogProps {
   triggerText?: string;
@@ -31,10 +26,7 @@ function CreateWorkFlowDialog({
   triggerText = "create workflow",
 }: CreateWorkFlowDialogProps) {
   const [open, setOpen] = useState(false);
-  const form = useForm<z.infer<typeof CreateWorkflowSchema>>({
-    resolver: zodResolver(CreateWorkflowSchema),
-    defaultValues: {},
-  });
+  const form = useForm();
 
   const isPending = false;
 
