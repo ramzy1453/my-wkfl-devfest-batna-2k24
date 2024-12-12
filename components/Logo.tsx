@@ -23,10 +23,10 @@ export default function Logo({ fontsize = "2xl", iconsize = 20 }: LogoProps) {
       </div>
       <div>
         <span className="bg-gradient-to-r from-emerald-500 to-emerald-600 bg-clip-text text-transparent">
-          wkl
+          My
         </span>
 
-        <span className="text-stone-700 dark:text-stone-300">Scrape</span>
+        <span className="text-stone-700 dark:text-stone-300">Wkfl</span>
       </div>
     </Link>
   );

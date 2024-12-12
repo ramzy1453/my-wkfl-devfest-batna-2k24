@@ -4,6 +4,7 @@ import { fromUnixTime } from "date-fns";
 import { AlertCircle, InboxIcon } from "lucide-react";
 import React, { Suspense } from "react";
 import CreateWorkFlowDialog from "./_component/CreateWorkFlow";
+import Link from "next/link";
 
 function WorkflowsPage() {
   return (
@@ -90,13 +91,17 @@ function UserWorkflows() {
   return (
     <div className="gap-4 grid grid-cols-2">
       {workflows.map((workflow) => (
-        <div key={workflow.id} className="bg-accent-foreground rounded-lg p-4">
+        <Link
+          href={`workflows/${workflow.id}`}
+          key={workflow.id}
+          className="bg-accent-foreground rounded-lg p-4"
+        >
           <h1 className="font-bold text-background text-lg">{workflow.name}</h1>
           <p className="text-muted-foreground">{workflow.description}</p>
           <p className="text-xs text-muted-foreground">
             {workflow.createdAt.toDateString()}
           </p>
-        </div>
+        </Link>
       ))}
     </div>
   );
