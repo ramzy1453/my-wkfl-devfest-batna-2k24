@@ -21,7 +21,6 @@ import { InstagramNode } from "./nodes/InstagramNode";
 import { ShopifyNode } from "./nodes/ShopifyNode";
 import { ChatGPTNode } from "./nodes/ChatGPTNode";
 import { SchedulerNode } from "./nodes/SchedulerNode";
-import { Sheet } from "lucide-react";
 
 function Flow() {
   // const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
@@ -64,12 +63,11 @@ function Flow() {
       instagram: InstagramNode,
       facebook: InstagramNode,
       youtube: InstagramNode,
-      shopify:ShopifyNode,
-      Chatgpt:ChatGPTNode,
-      Scheduler:SchedulerNode,
-      textDescription:TextInputNode,
-      googleSheets:ClassicNode,
-
+      shopify: ShopifyNode,
+      Chatgpt: ChatGPTNode,
+      Scheduler: SchedulerNode,
+      textDescription: TextInputNode,
+      googleSheets: ClassicNode,
     }),
     []
   );
