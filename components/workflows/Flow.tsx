@@ -17,6 +17,7 @@ import { useFlow } from "@/store/flow";
 import TextInputNode from "./nodes/TextInputNode";
 import FileUploader from "./nodes/FileUploader";
 import ClassicNode from "./nodes/ClassicNode";
+import { Button } from "../ui/button";
 
 function Flow() {
   // const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
@@ -27,6 +28,24 @@ function Flow() {
 
   const nodeValues = useFlow((state) => state.nodeValues);
   console.log({ nodeValues });
+
+  async function runPipeline() {
+    const base64EncodedImage = nodeValues["Image Uploader"];
+    const prompt = nodeValues["Generate Text"];
+    const response = await fetch("http://127.0.0.1:5000/generate-caption", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        image: base64EncodedImage,
+      }),
+    });
+
+    const data = await response.json();
+
+    console.log({ data });
+  }
 
   const setNodes = useFlow((state) => state.setNodes);
   const setEdges = useFlow((state) => state.setEdges);
@@ -66,6 +85,9 @@ function Flow() {
         width: "100vw",
       }}
     >
+      <Button onClick={runPipeline} className="text-foreground">
+        Run pipeline
+      </Button>
       <ReactFlow
         nodes={nodes}
         nodeTypes={nodeTypes}
