@@ -35,6 +35,7 @@ function Flow() {
   const edges = useFlow((state) => state.edges);
 
   const nodeValues = useFlow((state) => state.nodeValues);
+  const setNodeValues = useFlow((state) => state.setNodeValues);
   const [output, setOutput] = useState<Product>();
 
   function runScheduler() {
@@ -47,19 +48,20 @@ function Flow() {
       setTimeout(() => {
         toast.success("Pipeline ran successfully");
         runPipeline();
-      }, parseInt(scheduler) * 1000);
+      }, parseInt(scheduler as string) * 1000);
     } else {
       runPipeline();
     }
   }
   async function runPipeline() {
+    console.log({ nodeValues });
     const base64EncodedImage = nodeValues["Image Uploader"];
 
     // const prompt = nodeValues["Generate Text"];
 
     if (!base64EncodedImage) return;
     try {
-      const response = await fetch("http://localhost:3000/api/generate-image", {
+      const response = await fetch("http://localhost:3000/api/caption-image", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -69,11 +71,13 @@ function Flow() {
           prompt: "analyse-product",
         }),
       });
+
       const data = await response.json();
       const json = JSON.parse(
         data.output.replace("json", "").replaceAll("\n", "").replaceAll("`", "")
       ) as Product;
-      setOutput({ ...json, base64EncodedImage });
+      setOutput({ ...json, base64EncodedImage: base64EncodedImage as string });
+      setNodeValues("Generated Description", json);
     } catch (error) {
       console.log({ error });
     }

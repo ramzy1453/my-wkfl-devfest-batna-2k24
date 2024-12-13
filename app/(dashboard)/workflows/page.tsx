@@ -102,13 +102,6 @@ function UserWorkflows() {
     <div className="gap-4 grid grid-cols-2">
       {workflows.map((workflow) => (
         <Workflowcard key={workflow.id} workflow={workflow} />
-        //  <div key={workflow.id} className="bg-accent-foreground rounded-lg p-4">
-        //    <h1 className="font-bold text-background text-lg">{workflow.name}</h1>
-        //    <p className="text-muted-foreground">{workflow.description}</p>
-        //    <p className="text-xs text-muted-foreground">
-        //      {workflow.createdAt.toDateString()}
-        //    </p>
-        //  </div>
       ))}
     </div>
   );

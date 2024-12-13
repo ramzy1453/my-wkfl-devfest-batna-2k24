@@ -3,14 +3,16 @@
 import { Mail, Send, User } from "lucide-react";
 import { NodeWrapper } from "./NodeWrapper";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
+import { useFlow } from "@/store/flow";
+import { Product } from "@/types/product";
+import { toast } from "sonner";
 
 export function EmailNode({ data }: { data: { label: string } }) {
-  const [sender, setSender] = useState("");
+  const [to, setTo] = useState("");
   const [subject, setSubject] = useState("");
-  const [message, setMessage] = useState("");
   const [isValidEmail, setIsValidEmail] = useState(true);
+  const nodeValues = useFlow((state) => state.nodeValues);
 
   const validateEmail = (email: string) => {
     const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -19,8 +21,53 @@ export function EmailNode({ data }: { data: { label: string } }) {
 
   const handleSenderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const email = e.target.value;
-    setSender(email);
+    setTo(email);
     setIsValidEmail(validateEmail(email));
+  };
+
+  const onSendEmail = async () => {
+    const json = nodeValues["Generated Description"] as Product;
+    const response = await fetch("http://localhost:3000/api/email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: "MyWkfl",
+        to,
+        message: `
+          <div class="flex flex-col py-4 h-96 overflow-y-scroll">
+                  <div class="flex space-x-4">
+                    <img
+                      src="${json.base64EncodedImage}"
+                      alt="${json.product}"
+                      class="w-32 h-32 rounded-md"
+                    />
+                    <div
+                      class="w-16 h-16 rounded-md"
+                      style="background-color: ${json.color};"
+                      
+                    ></div>
+        
+                    <div className="flex flex-col">
+                      <h1 className="font-bold text-lg">Color</h1>
+                      <p className="text-muted-foreground"> ${json.color}</p>
+                    </div>
+                  </div>
+                </div>
+        `,
+        subject,
+      }),
+    });
+
+    const data = await response.json();
+    if (data.accepted.length > 0) {
+      toast.success("Email sent successfully to " + to);
+    } else {
+      toast.error("Failed to send email to " + to);
+    }
+
+    console.log({ data });
   };
 
   return (
@@ -30,15 +77,15 @@ export function EmailNode({ data }: { data: { label: string } }) {
           <User className="w-4 h-4 text-gray-500" />
           <Input
             type="email"
-            placeholder="Sender Email"
-            value={sender}
+            placeholder="To"
+            value={to}
             onChange={handleSenderChange}
             className={`flex-grow ${
-              !isValidEmail && sender ? "border-red-500" : ""
+              !isValidEmail && to ? "border-red-500" : ""
             }`}
           />
         </div>
-        {!isValidEmail && sender && (
+        {!isValidEmail && to && (
           <p className="text-red-500 text-xs">
             Please enter a valid email address.
           </p>
@@ -49,17 +96,12 @@ export function EmailNode({ data }: { data: { label: string } }) {
           value={subject}
           onChange={(e) => setSubject(e.target.value)}
         />
-        <Textarea
-          placeholder="Message"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          rows={3}
-        />
+
         <div className="flex items-center justify-between text-sm">
-          <span className="text-gray-500">{message.length} characters</span>
           <Send
+            onClick={onSendEmail}
             className={`w-4 h-4 ${
-              sender && subject && message ? "text-green-500" : "text-gray-300"
+              to && subject ? "text-green-500" : "text-gray-300"
             }`}
           />
         </div>
