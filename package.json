@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.21.0",
     "@hookform/resolvers": "^3.9.1",
+    "@pollinations/react": "^2.0.7",
     "@prisma/client": "^6.0.0",
     "@radix-ui/react-accordion": "^1.2.1",
     "@radix-ui/react-alert-dialog": "^1.1.2",
@@ -40,14 +42,19 @@
     "@radix-ui/react-tooltip": "^1.1.4",
     "@tanstack/react-query": "^5.62.7",
     "@tanstack/react-query-devtools": "^5.62.7",
+    "@xyflow/react": "^12.3.6",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
     "date-fns": "^3.6.0",
     "embla-carousel-react": "^8.5.1",
+    "framer-motion": "^11.14.1",
     "input-otp": "^1.4.1",
+    "instagram-private-api": "^1.46.1",
+    "lodash": "^4.17.21",
     "lucide-react": "^0.460.0",
     "next": "15.1.0",
+    "next-auth": "^4.24.11",
     "next-themes": "^0.4.3",
     "react": "^18",
     "react-day-picker": "^8.10.1",
@@ -59,7 +66,8 @@
     "sonner": "^1.7.0",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
-    "vaul": "^1.1.1"
+    "vaul": "^1.1.1",
+    "zustand": "^5.0.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

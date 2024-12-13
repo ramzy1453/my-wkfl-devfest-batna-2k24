@@ -43,7 +43,6 @@ export default function DesktopSidebar() {
     (route) => route.href.length > 0 && pathname.includes(route.href)
   );
 
-  console.log({ activeRoute });
   return (
     <div
       className="hidden relative md:block h-screen overflow-hidden bg-primary/5 
