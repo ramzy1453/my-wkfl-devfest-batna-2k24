@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import {
   ReactFlow,
   Controls,
@@ -17,11 +17,14 @@ import { useFlow } from "@/store/flow";
 import TextInputNode from "./nodes/TextInputNode";
 import FileUploader from "./nodes/FileUploader";
 import ClassicNode from "./nodes/ClassicNode";
+import { Button } from "../ui/button";
+import OutputDialog from "@/components/workflows/dialogs/OutputDialog";
+import { Product } from "@/types/product";
 import { InstagramNode } from "./nodes/InstagramNode";
 import { ShopifyNode } from "./nodes/ShopifyNode";
 import { ChatGPTNode } from "./nodes/ChatGPTNode";
 import { SchedulerNode } from "./nodes/SchedulerNode";
-import { Sheet } from "lucide-react";
+import { toast } from "sonner";
 
 function Flow() {
   // const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
@@ -31,12 +34,52 @@ function Flow() {
   const edges = useFlow((state) => state.edges);
 
   const nodeValues = useFlow((state) => state.nodeValues);
-  console.log({ nodeValues });
+  const [output, setOutput] = useState<Product>();
+
+  function runScheduler() {
+    const scheduler = nodeValues["Scheduler"];
+    if (scheduler) {
+      toast.success(
+        `Scheduled pipeline successfully is about to run in ${scheduler} seconds`,
+        { duration: 1500 }
+      );
+      setTimeout(() => {
+        toast.success("Pipeline ran successfully");
+        runPipeline();
+      }, parseInt(scheduler) * 1000);
+    } else {
+      runPipeline();
+    }
+  }
+  async function runPipeline() {
+    const base64EncodedImage = nodeValues["Image Uploader"];
+
+    // const prompt = nodeValues["Generate Text"];
+
+    if (!base64EncodedImage) return;
+    try {
+      const response = await fetch("http://localhost:3000/api/generate-image", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          base64EncodedImage,
+          prompt: "analyse-product",
+        }),
+      });
+      const data = await response.json();
+      const json = JSON.parse(
+        data.output.replace("json", "").replaceAll("\n", "").replaceAll("`", "")
+      ) as Product;
+      setOutput({ ...json, base64EncodedImage });
+    } catch (error) {
+      console.log({ error });
+    }
+  }
 
   const setNodes = useFlow((state) => state.setNodes);
   const setEdges = useFlow((state) => state.setEdges);
-
-  useEffect(() => {}, [nodes]);
 
   const onNodesChange: OnNodesChange = useCallback(
     (changes) => {
@@ -64,40 +107,51 @@ function Flow() {
       instagram: InstagramNode,
       facebook: InstagramNode,
       youtube: InstagramNode,
-      shopify:ShopifyNode,
-      Chatgpt:ChatGPTNode,
-      Scheduler:SchedulerNode,
-      textDescription:TextInputNode,
-      googleSheets:ClassicNode,
-
+      shopify: ShopifyNode,
+      Chatgpt: ChatGPTNode,
+      scheduler: SchedulerNode,
+      textDescription: TextInputNode,
+      googleSheets: ClassicNode,
     }),
     []
   );
+
   return (
-    <div
-      style={{
-        height: "100vh",
-        width: "100vw",
-      }}
-    >
-      <ReactFlow
-        nodes={nodes}
-        nodeTypes={nodeTypes}
-        onNodesChange={onNodesChange}
-        edges={edges}
-        onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
-        panOnScroll
-        selectionMode={SelectionMode.Partial}
-        fitView
-        defaultEdgeOptions={{
-          animated: true,
+    <>
+      <OutputDialog
+        output={output}
+        setOutput={(value) => {
+          setOutput(value);
+        }}
+      />
+      <div
+        style={{
+          height: "100vh",
+          width: "100vw",
         }}
       >
-        <Background />
-        <Controls />
-      </ReactFlow>
-    </div>
+        <Button onClick={runScheduler} className="text-foreground">
+          Run pipeline
+        </Button>
+        <ReactFlow
+          nodes={nodes}
+          nodeTypes={nodeTypes}
+          onNodesChange={onNodesChange}
+          edges={edges}
+          onEdgesChange={onEdgesChange}
+          onConnect={onConnect}
+          panOnScroll
+          selectionMode={SelectionMode.Partial}
+          fitView
+          defaultEdgeOptions={{
+            animated: true,
+          }}
+        >
+          <Background />
+          <Controls />
+        </ReactFlow>
+      </div>
+    </>
   );
 }
 

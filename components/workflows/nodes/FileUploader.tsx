@@ -2,8 +2,8 @@ import { ChangeEventHandler, useCallback } from "react";
 import { useFlow } from "@/store/flow";
 import { NodeWrapper } from "./NodeWrapper";
 import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { File, Upload } from 'lucide-react';
+import { File, Upload } from "lucide-react";
+import { toast } from "sonner";
 
 type Props = {
   data: {
@@ -20,6 +20,11 @@ export default function FileUploader({ data }: Props) {
       if (!file) return;
       const reader = new FileReader();
       reader.onload = (e) => {
+        toast.success(`File uploaded successfully: ${file.name}`, {
+          duration: 5000,
+          position: "top-center",
+        });
+
         setNodeValues(data.label, e.target?.result as string);
       };
       reader.readAsDataURL(file);
@@ -28,7 +33,7 @@ export default function FileUploader({ data }: Props) {
   );
 
   return (
-    <NodeWrapper label={data.label}  icon={File}>
+    <NodeWrapper label={data.label} icon={File}>
       <div className="space-y-2">
         <Label htmlFor={`file-${data.id}`} className="sr-only">
           Upload File
@@ -41,7 +46,8 @@ export default function FileUploader({ data }: Props) {
             <div className="flex flex-col items-center justify-center pt-5 pb-6">
               <Upload className="w-8 h-8 mb-3 text-muted-foreground" />
               <p className="mb-2 text-sm text-muted-foreground">
-                <span className="font-semibold">Click to upload</span> or drag and drop
+                <span className="font-semibold">Click to upload</span> or drag
+                and drop
               </p>
             </div>
             <input
@@ -56,4 +62,3 @@ export default function FileUploader({ data }: Props) {
     </NodeWrapper>
   );
 }
-

@@ -4,6 +4,7 @@ import "./globals.css";
 import ReactQueryProvider from "@/components/providers/ReactQueryProvider";
 import type { Session } from "next-auth";
 import ClientSessionProvider from "./session-provider";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,7 +27,7 @@ export default function RootLayout({
           <ReactQueryProvider>{children}</ReactQueryProvider>
         </ClientSessionProvider>
       </body>
-      {/* <Toaster /> */}
+      <Toaster />
     </html>
   );
 }
