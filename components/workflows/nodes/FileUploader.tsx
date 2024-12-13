@@ -1,6 +1,9 @@
 import { ChangeEventHandler, useCallback } from "react";
-import { Handle, Position } from "@xyflow/react";
 import { useFlow } from "@/store/flow";
+import { NodeWrapper } from "./NodeWrapper";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { File, Upload } from 'lucide-react';
 
 type Props = {
   data: {
@@ -25,25 +28,32 @@ export default function FileUploader({ data }: Props) {
   );
 
   return (
-    <>
-      <Handle type="target" position={Position.Top} />
-      <div className="bg-foreground text-background py-2 px-4 rounded-md space-y-2 flex flex-col items-center justify-center">
-        <label htmlFor="text">{data.label}</label>
-        <input
-          id="file"
-          name="file"
-          type="file"
-          onChange={onChange}
-          className="nodrag bg-transparent outline-none border border-background px-2"
-        />
+    <NodeWrapper label={data.label}  icon={File}>
+      <div className="space-y-2">
+        <Label htmlFor={`file-${data.id}`} className="sr-only">
+          Upload File
+        </Label>
+        <div className="flex items-center justify-center w-full">
+          <label
+            htmlFor={`file-${data.id}`}
+            className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer bg-muted hover:bg-muted/80 transition-colors"
+          >
+            <div className="flex flex-col items-center justify-center pt-5 pb-6">
+              <Upload className="w-8 h-8 mb-3 text-muted-foreground" />
+              <p className="mb-2 text-sm text-muted-foreground">
+                <span className="font-semibold">Click to upload</span> or drag and drop
+              </p>
+            </div>
+            <input
+              id={`file-${data.id}`}
+              type="file"
+              className="hidden"
+              onChange={onChange}
+            />
+          </label>
+        </div>
       </div>
-      <Handle type="source" position={Position.Bottom} id="a" />
-      <Handle
-        type="source"
-        position={Position.Bottom}
-        id="b"
-        style={{ left: 10 }}
-      />
-    </>
+    </NodeWrapper>
   );
 }
+

@@ -17,6 +17,11 @@ import { useFlow } from "@/store/flow";
 import TextInputNode from "./nodes/TextInputNode";
 import FileUploader from "./nodes/FileUploader";
 import ClassicNode from "./nodes/ClassicNode";
+import { InstagramNode } from "./nodes/InstagramNode";
+import { ShopifyNode } from "./nodes/ShopifyNode";
+import { ChatGPTNode } from "./nodes/ChatGPTNode";
+import { SchedulerNode } from "./nodes/SchedulerNode";
+import { Sheet } from "lucide-react";
 
 function Flow() {
   // const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
@@ -56,6 +61,15 @@ function Flow() {
       textInput: TextInputNode,
       fileUploader: FileUploader,
       classic: ClassicNode,
+      instagram: InstagramNode,
+      facebook: InstagramNode,
+      youtube: InstagramNode,
+      shopify:ShopifyNode,
+      Chatgpt:ChatGPTNode,
+      Scheduler:SchedulerNode,
+      textDescription:TextInputNode,
+      googleSheets:ClassicNode,
+
     }),
     []
   );

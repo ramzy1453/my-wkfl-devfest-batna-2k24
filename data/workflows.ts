@@ -29,6 +29,13 @@ export const nodeTypesData = [
     icon: FileText,
   },
   {
+    name: "text input",
+    description: "Generate text based on the prompt",
+    logo: "/assets/logos/image-generator.png",
+    type: "textInput",
+    icon: FileText,
+  },
+  {
     name: "Image Uploader",
     description: "Upload files to the server",
     logo: "/assets/logos/file-uploader.png",
