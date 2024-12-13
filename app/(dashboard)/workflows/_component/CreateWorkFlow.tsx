@@ -17,9 +17,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import Workflowaction from "@/actions/workflowactions/workflowaction";
 
 interface CreateWorkFlowDialogProps {
   triggerText?: string;
+  isPending?: boolean;
 }
 
 function CreateWorkFlowDialog({
@@ -27,7 +29,7 @@ function CreateWorkFlowDialog({
 }: CreateWorkFlowDialogProps) {
   const [open, setOpen] = useState(false);
   const form = useForm();
-
+  
   const isPending = false;
 
   return (
@@ -47,7 +49,9 @@ function CreateWorkFlowDialog({
             <form
               className="space-y-8 w-full"
               onSubmit={form.handleSubmit(() => {
-                console.log("submit");
+                Workflowaction.Create(form.getValues());
+                form.reset();
+                setOpen(false);
               })}
             >
               <FormField
