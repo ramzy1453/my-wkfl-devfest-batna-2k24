@@ -25,6 +25,7 @@ import { ShopifyNode } from "./nodes/ShopifyNode";
 import { ChatGPTNode } from "./nodes/ChatGPTNode";
 import { SchedulerNode } from "./nodes/SchedulerNode";
 import { toast } from "sonner";
+import { EmailNode } from "./nodes/EmailNode";
 
 function Flow() {
   // const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
@@ -112,6 +113,7 @@ function Flow() {
       scheduler: SchedulerNode,
       textDescription: TextInputNode,
       googleSheets: ClassicNode,
+      email: EmailNode,
     }),
     []
   );
