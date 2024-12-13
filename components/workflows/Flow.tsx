@@ -18,12 +18,13 @@ import TextInputNode from "./nodes/TextInputNode";
 import FileUploader from "./nodes/FileUploader";
 import ClassicNode from "./nodes/ClassicNode";
 import { Button } from "../ui/button";
-import OutputDialog from "./OutputDialog";
+import OutputDialog from "@/components/workflows/dialogs/OutputDialog";
 import { Product } from "@/types/product";
 import { InstagramNode } from "./nodes/InstagramNode";
 import { ShopifyNode } from "./nodes/ShopifyNode";
 import { ChatGPTNode } from "./nodes/ChatGPTNode";
 import { SchedulerNode } from "./nodes/SchedulerNode";
+import { toast } from "sonner";
 
 function Flow() {
   // const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
@@ -35,10 +36,27 @@ function Flow() {
   const nodeValues = useFlow((state) => state.nodeValues);
   const [output, setOutput] = useState<Product>();
 
+  function runScheduler() {
+    const scheduler = nodeValues["Scheduler"];
+    if (scheduler) {
+      toast.success(
+        `Scheduled pipeline successfully is about to run in ${scheduler} seconds`,
+        { duration: 1500 }
+      );
+      setTimeout(() => {
+        toast.success("Pipeline ran successfully");
+        runPipeline();
+      }, parseInt(scheduler) * 1000);
+    } else {
+      runPipeline();
+    }
+  }
   async function runPipeline() {
     const base64EncodedImage = nodeValues["Image Uploader"];
+
     // const prompt = nodeValues["Generate Text"];
 
+    if (!base64EncodedImage) return;
     try {
       const response = await fetch("http://localhost:3000/api/generate-image", {
         method: "POST",
@@ -91,7 +109,7 @@ function Flow() {
       youtube: InstagramNode,
       shopify: ShopifyNode,
       Chatgpt: ChatGPTNode,
-      Scheduler: SchedulerNode,
+      scheduler: SchedulerNode,
       textDescription: TextInputNode,
       googleSheets: ClassicNode,
     }),
@@ -112,7 +130,7 @@ function Flow() {
           width: "100vw",
         }}
       >
-        <Button onClick={runPipeline} className="text-foreground">
+        <Button onClick={runScheduler} className="text-foreground">
           Run pipeline
         </Button>
         <ReactFlow

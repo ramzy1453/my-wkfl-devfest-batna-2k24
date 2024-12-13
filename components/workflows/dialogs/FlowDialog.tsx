@@ -14,11 +14,18 @@ import FlowCard from "../FlowCard";
 import { motion } from "framer-motion";
 import { Button } from "../../ui/button";
 import { Plus } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const MotionDialogContent = motion.create(DialogContent);
 export default function FlowDialog() {
   const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState("");
+
+  useEffect(() => {
+    if (open) {
+      setQuery("");
+    }
+  }, [open]);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -40,19 +47,29 @@ export default function FlowDialog() {
         <DialogHeader className="space-y-4">
           <DialogTitle>Toolkit</DialogTitle>
           <DialogDescription>
-            <Input placeholder="Search toolkit" />
+            <Input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search toolkit"
+            />
           </DialogDescription>
         </DialogHeader>
         <div className="flex flex-col py-4 h-96 overflow-y-scroll">
-          {nodeTypesData.map((node, i) => (
-            <FlowCard
-              key={i}
-              {...node}
-              closeDialog={() => {
-                setOpen(false);
-              }}
-            />
-          ))}
+          {nodeTypesData
+            .filter(
+              (node) =>
+                node.name.toLowerCase().includes(query.toLowerCase()) ||
+                node.description.toLowerCase().includes(query.toLowerCase())
+            )
+            .map((node, i) => (
+              <FlowCard
+                key={i}
+                {...node}
+                closeDialog={() => {
+                  setOpen(false);
+                }}
+              />
+            ))}
         </div>
       </MotionDialogContent>
     </Dialog>

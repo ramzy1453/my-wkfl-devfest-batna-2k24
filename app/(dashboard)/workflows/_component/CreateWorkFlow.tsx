@@ -4,7 +4,12 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { CustomDialogHeader } from "@/components/ui/CustomDialogHeader";
 import { Layers2Icon, Loader2 } from "lucide-react";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { useForm } from "react-hook-form";
 import {
   Form,
@@ -29,7 +34,7 @@ function CreateWorkFlowDialog({
 }: CreateWorkFlowDialogProps) {
   const [open, setOpen] = useState(false);
   const form = useForm();
-  
+
   const isPending = false;
 
   return (
@@ -39,6 +44,7 @@ function CreateWorkFlowDialog({
       </DialogTrigger>
 
       <DialogContent className="px-0">
+        <DialogHeader></DialogHeader>
         <CustomDialogHeader
           icon={Layers2Icon}
           title="Create Workflow"

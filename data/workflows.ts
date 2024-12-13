@@ -1,4 +1,19 @@
-import { Store, Instagram, Facebook, BarChart3, Truck, ShoppingBag, Mail, Bot, MessageSquare, Search, CreditCard, Youtube, FileImage, Clock, FileText, Rss } from 'lucide-react'
+import {
+  Store,
+  Instagram,
+  Facebook,
+  BarChart3,
+  Truck,
+  ShoppingBag,
+  Mail,
+  Bot,
+  MessageSquare,
+  Youtube,
+  FileImage,
+  Clock,
+  FileText,
+  Rss,
+} from "lucide-react";
 
 export const workflows = [
   {
@@ -9,15 +24,19 @@ export const workflows = [
       { id: "2", type: "textInput", data: { label: "Enter Prompt" } },
       { id: "3", type: "scheduler", data: { label: "Set Schedule" } },
       { id: "4", type: "scriptGenerator", data: { label: "Generate Script" } },
-      { id: "5", type: "instagramPublisher", data: { label: "Publish to Instagram" } }
+      {
+        id: "5",
+        type: "instagramPublisher",
+        data: { label: "Publish to Instagram" },
+      },
     ],
     edges: [
       { id: "e1-2", source: "1", target: "4" },
       { id: "e2-4", source: "2", target: "4" },
       { id: "e3-5", source: "3", target: "5" },
-      { id: "e4-5", source: "4", target: "5" }
-    ]
-  }
+      { id: "e4-5", source: "4", target: "5" },
+    ],
+  },
 ];
 
 export const nodeTypesData = [
@@ -174,6 +193,5 @@ export const nodeTypesData = [
     logo: "/assets/logos/content-aggregator.png",
     type: "contentAggregator",
     icon: FileText,
-  }
+  },
 ];
-
