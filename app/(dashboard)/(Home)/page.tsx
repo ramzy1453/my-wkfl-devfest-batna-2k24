@@ -1,36 +1,30 @@
-// React code example using usePollinationsImage hook
-// For more details, visit: https://react-hooks.pollinations.ai/
-
 "use client";
-import React from "react";
-import { usePollinationsImage } from "@pollinations/react";
-import Image from "next/image";
-import { useSession, signIn, signOut } from "next-auth/react";
 
-const GeneratedImageComponent = () => {
-  const { data: session } = useSession();
-  console.log({ session });
-  console.log(
-    "NEXT_PUBLIC_FACEBOOK_ID",
-    process.env.NEXT_PUBLIC_FACEBOOK_ID,
-    "NEXT_PUBLIC_FACEBOOK_SECRET",
-    process.env.NEXT_PUBLIC_FACEBOOK_SECRET
-  );
+import { useEffect } from "react";
+import { motion, useAnimation } from "framer-motion";
+
+export default function HomePage() {
+  const controls = useAnimation();
+
+  useEffect(() => {
+    controls.start((i) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 0.1 },
+    }));
+  }, [controls]);
 
   return (
-    <div>
-      {session ? (
-        <div>
-          <button onClick={() => signOut()}>Sign out</button>
-        </div>
-      ) : (
-        <div>
-          <button onClick={() => signIn()}>Sign in</button>
-        </div>
-      )}
-      {session && <div>{session.user?.name}</div>}
+    <div className="min-h-screen bg-gray-950 p-8">
+      <motion.h1
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="mb-8 text-center text-3xl font-bold text-white"
+      >
+        Connect Your Services
+      </motion.h1>
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"></div>
     </div>
   );
-};
-
-export default GeneratedImageComponent;
+}

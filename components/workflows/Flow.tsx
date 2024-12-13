@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import {
   ReactFlow,
   Controls,
@@ -17,6 +17,9 @@ import { useFlow } from "@/store/flow";
 import TextInputNode from "./nodes/TextInputNode";
 import FileUploader from "./nodes/FileUploader";
 import ClassicNode from "./nodes/ClassicNode";
+import { Button } from "../ui/button";
+import OutputDialog from "./OutputDialog";
+import { Product } from "@/types/product";
 
 function Flow() {
   // const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
@@ -26,12 +29,35 @@ function Flow() {
   const edges = useFlow((state) => state.edges);
 
   const nodeValues = useFlow((state) => state.nodeValues);
-  console.log({ nodeValues });
+  const [output, setOutput] = useState<Product>();
+
+  async function runPipeline() {
+    const base64EncodedImage = nodeValues["Image Uploader"];
+    const prompt = nodeValues["Generate Text"];
+
+    try {
+      const response = await fetch("http://localhost:3000/api/generate-image", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          base64EncodedImage,
+          prompt: "analyse-product",
+        }),
+      });
+      const data = await response.json();
+      const json = JSON.parse(
+        data.output.replace("json", "").replaceAll("\n", "").replaceAll("`", "")
+      ) as Product;
+      setOutput({ ...json, base64EncodedImage });
+    } catch (error) {
+      console.log({ error });
+    }
+  }
 
   const setNodes = useFlow((state) => state.setNodes);
   const setEdges = useFlow((state) => state.setEdges);
-
-  useEffect(() => {}, [nodes]);
 
   const onNodesChange: OnNodesChange = useCallback(
     (changes) => {
@@ -59,31 +85,43 @@ function Flow() {
     }),
     []
   );
+
   return (
-    <div
-      style={{
-        height: "100vh",
-        width: "100vw",
-      }}
-    >
-      <ReactFlow
-        nodes={nodes}
-        nodeTypes={nodeTypes}
-        onNodesChange={onNodesChange}
-        edges={edges}
-        onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
-        panOnScroll
-        selectionMode={SelectionMode.Partial}
-        fitView
-        defaultEdgeOptions={{
-          animated: true,
+    <>
+      <OutputDialog
+        output={output}
+        setOutput={(value) => {
+          setOutput(value);
+        }}
+      />
+      <div
+        style={{
+          height: "100vh",
+          width: "100vw",
         }}
       >
-        <Background />
-        <Controls />
-      </ReactFlow>
-    </div>
+        <Button onClick={runPipeline} className="text-foreground">
+          Run pipeline
+        </Button>
+        <ReactFlow
+          nodes={nodes}
+          nodeTypes={nodeTypes}
+          onNodesChange={onNodesChange}
+          edges={edges}
+          onEdgesChange={onEdgesChange}
+          onConnect={onConnect}
+          panOnScroll
+          selectionMode={SelectionMode.Partial}
+          fitView
+          defaultEdgeOptions={{
+            animated: true,
+          }}
+        >
+          <Background />
+          <Controls />
+        </ReactFlow>
+      </div>
+    </>
   );
 }
 

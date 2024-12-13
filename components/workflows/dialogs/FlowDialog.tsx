@@ -8,15 +8,15 @@ import {
   Dialog,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "../ui/input";
+import { Input } from "../../ui/input";
 import { nodeTypesData } from "@/data/workflows";
-import FlowCard from "./FlowCard";
+import FlowCard from "../FlowCard";
 import { motion } from "framer-motion";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 
-const MotionDialogContent = motion(DialogContent);
+const MotionDialogContent = motion.create(DialogContent);
 export default function FlowDialog() {
   const [open, setOpen] = useState(false);
   return (

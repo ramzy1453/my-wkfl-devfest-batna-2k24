@@ -1,5 +1,5 @@
 import Flow from "@/components/workflows/Flow";
-import FlowDialog from "@/components/workflows/FlowDialog";
+import FlowDialog from "@/components/workflows/dialogs/FlowDialog";
 
 export default async function WorflowDetails() {
   // const res = await fetch("http://localhost:3000/api/generate-image", {
