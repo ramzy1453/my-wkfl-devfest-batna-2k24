@@ -10,13 +10,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 const GeneratedImageComponent = () => {
   const { data: session } = useSession();
   console.log({ session });
-  console.log(
-    "NEXT_PUBLIC_FACEBOOK_ID",
-    process.env.NEXT_PUBLIC_FACEBOOK_ID,
-    "NEXT_PUBLIC_FACEBOOK_SECRET",
-    process.env.NEXT_PUBLIC_FACEBOOK_SECRET
-  );
-
+  
   return (
     <div>
       {session ? (
