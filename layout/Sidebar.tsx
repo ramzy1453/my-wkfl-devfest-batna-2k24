@@ -27,7 +27,7 @@ const routes = [
   },
   {
     label: "Credentials",
-    href: "/credentiels",
+    href: "/credentials",
     icon: ShieldCheckIcon,
   },
   {
