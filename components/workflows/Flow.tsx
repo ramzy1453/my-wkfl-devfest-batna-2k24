@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import {
   ReactFlow,
   Controls,
@@ -13,8 +13,10 @@ import {
   applyEdgeChanges,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
-import TextUpdaterNode from "./nodes/TextUpdaterNode";
 import { useFlow } from "@/store/flow";
+import TextInputNode from "./nodes/TextInputNode";
+import FileUploader from "./nodes/FileUploader";
+import ClassicNode from "./nodes/ClassicNode";
 
 function Flow() {
   // const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
@@ -23,9 +25,13 @@ function Flow() {
   const nodes = useFlow((state) => state.nodes);
   const edges = useFlow((state) => state.edges);
 
-  console.log({ ab: nodes });
+  const nodeValues = useFlow((state) => state.nodeValues);
+  console.log({ nodeValues });
+
   const setNodes = useFlow((state) => state.setNodes);
   const setEdges = useFlow((state) => state.setEdges);
+
+  useEffect(() => {}, [nodes]);
 
   const onNodesChange: OnNodesChange = useCallback(
     (changes) => {
@@ -47,7 +53,9 @@ function Flow() {
 
   const nodeTypes = useMemo(
     () => ({
-      textUpdater: TextUpdaterNode,
+      textInput: TextInputNode,
+      fileUploader: FileUploader,
+      classic: ClassicNode,
     }),
     []
   );

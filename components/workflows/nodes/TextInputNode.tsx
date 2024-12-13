@@ -1,20 +1,28 @@
 import { ChangeEventHandler, useCallback } from "react";
-import { Handle, Position, NodeProps } from "@xyflow/react";
+import { Handle, Position } from "@xyflow/react";
+import { useFlow } from "@/store/flow";
 
 type Props = {
-  data: NodeProps["data"];
+  data: {
+    label: string;
+    id: string;
+  };
 };
 
-export default function TextUpdaterNode({ data }: Props) {
-  const onChange: ChangeEventHandler<HTMLInputElement> = useCallback((evt) => {
-    console.log(evt.target.value);
-  }, []);
+export default function TextInputNode({ data }: Props) {
+  const setNodeValues = useFlow((state) => state.setNodeValues);
+  const onChange: ChangeEventHandler<HTMLInputElement> = useCallback(
+    (e) => {
+      setNodeValues(data.label, e.target.value);
+    },
+    [data.label, setNodeValues]
+  );
 
   return (
     <>
       <Handle type="target" position={Position.Top} />
       <div className="bg-foreground text-background py-2 px-4 rounded-md space-y-2 flex flex-col items-center justify-center">
-        <label htmlFor="text">Text Input</label>
+        <label htmlFor="text">{data.label}</label>
         <input
           id="text"
           name="text"

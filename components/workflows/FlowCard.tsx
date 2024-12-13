@@ -8,6 +8,7 @@ type Props = {
   logo: string;
   name: string;
   description: string;
+  type: string;
   closeDialog: () => void;
 };
 
@@ -15,27 +16,21 @@ export default function FlowCard({
   logo,
   name,
   description,
+  type,
   closeDialog,
 }: Props) {
   const addNodes = useFlow((state) => state.addNode);
-  const addEdges = useFlow((state) => state.addEdge);
+  //   const addEdges = useFlow((state) => state.addEdge);
+
+  console.log({ type });
 
   const onAddNode = () => {
     addNodes({
-      data: { label: "Uppercase" },
-      position: { x: 100, y: 100 },
-      type: "textUpdater",
-      style: {
-        background: "green",
-        color: "white",
-        border: "1px solid black",
-        borderRadius: "5px",
-        padding: "10px",
-        width: "100px",
-        textAlign: "center",
-        fontSize: "14px",
-        fontWeight: "bold",
+      data: {
+        label: name,
       },
+      position: { x: 100, y: 100 },
+      type,
     });
     closeDialog();
   };

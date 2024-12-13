@@ -19,7 +19,6 @@ import { useState } from "react";
 const MotionDialogContent = motion(DialogContent);
 export default function FlowDialog() {
   const [open, setOpen] = useState(false);
-  console.log({ open });
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>

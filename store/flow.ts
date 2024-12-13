@@ -8,37 +8,14 @@ type Flow = {
   addEdge: (edge: Edge) => void;
   setNodes: (nodes: Node[]) => void;
   setEdges: (edges: Edge[]) => void;
+  nodeValues: Record<string, string>;
+  setNodeValues: (key: string, value: string) => void;
 };
 
 export const useFlow = create<Flow>((set) => ({
-  edges: [
-    { id: "1-2", source: "1", target: "2", label: "to the", type: "step" },
-  ],
-  nodes: [
-    {
-      id: "1",
-      data: { label: "Hello" },
-      position: { x: 0, y: 0 },
-      type: "input",
-      style: {
-        background: "green",
-        color: "white",
-        border: "1px solid black",
-        borderRadius: "5px",
-        padding: "10px",
-        width: "100px",
-        textAlign: "center",
-        fontSize: "14px",
-        fontWeight: "bold",
-      },
-    },
-    {
-      id: "2",
-      data: { label: "World" },
-      type: "textUpdater",
-      position: { x: 100, y: 100 },
-    },
-  ],
+  edges: [],
+  nodes: [],
+  nodeValues: {},
   addNode: (node: Partial<Node>) => {
     return set((state) => ({
       nodes: [
@@ -58,5 +35,15 @@ export const useFlow = create<Flow>((set) => ({
   },
   setEdges: (edges: Edge[]) => {
     return set({ edges });
+  },
+  setNodeValues(key, value) {
+    return set((state) => {
+      return {
+        nodeValues: {
+          ...state.nodeValues,
+          [key]: value,
+        },
+      };
+    });
   },
 }));
