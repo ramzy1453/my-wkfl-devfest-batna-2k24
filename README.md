@@ -8,20 +8,24 @@ MyWkfl is a cutting-edge platform designed to streamline workflows and automate 
 
 ## 🌟 Features
 
-### 🛠️ Core Components
+### 🔧 Core Components
 
 1. **Image Upload**  
    Easily upload images to integrate into your workflow tasks. Perfect for managing product visuals or social media assets.
-2. **Description Generator**  
+
+2. **Image-to-Text Models**  
+   Extract text from uploaded images using advanced AI models, enabling smarter workflows and streamlined content creation.
+
+3. **Description Generator**  
    Automatically generate high-quality, engaging descriptions for your products, social posts, or any other content needs.
 
-3. **Task Scheduler**  
+4. **Task Scheduler**  
    Schedule tasks to execute later, ensuring your workflow runs smoothly even when you're away.
 
-4. **Email Automation**  
+5. **Email Automation**  
    Create, customize, and send automated emails directly from your workflow.
 
-5. **Extensive Plugin Support**  
+6. **Extensive Plugin Support**  
    A growing library of plugins to integrate with popular tools like Instagram, email services, and more!
 
 ---
@@ -60,7 +64,7 @@ _We are constantly improving and will soon add screenshots to showcase the platf
 
 ---
 
-## 🛠️ Installation
+## ⚙️ Installation
 
 Follow these steps to get started with MyWkfl:
 
@@ -98,20 +102,23 @@ We welcome contributions! Here's how you can help:
    git commit -m "Add your feature description"
    ```
 4. Push to the branch:
+   ```bash
+   git push origin feature/your-feature-name
+   ```
 5. Open a pull request.
 
 ---
 
 ## 🌟 Authors
- ramzy kemmoun
-  https://media.licdn.com/dms/image/v2/D4E03AQHTotujK0-kBg/profile-di…99237350?e=1739404800&v=beta&t=MD8vmHV0tYod_U3VTTdSfB4Yq4e0HKOR75dISJJJ614" height="200" alt="Ramzy KEMMOUN" id="ember33" class="NHcSPXNwVceJegGGJZVRdAtjMaiizFaYgBYU pv-top-card-profile-picture__image--show evi-image ember-view
-  https://github.com/ramzy1453
- adem menhouri
- https://www.linkedin.com/in/menhouradem/
- https://github.com/ademmenh
- wail bentafat
-https://www.linkedin.com/in/wail-bentafat-36319428a/?originalSubdomain=dz
-https://github.com/wailbentafat
+
+| **Author**          | **Picture**                                                                                                        | **GitHub**                          |
+|---------------------|--------------------------------------------------------------------------------------------------------------------|-------------------------------------|
+| **Ramzy Kemmoun**   | ![Ramzy Kemmoun](https://media.licdn.com/dms/image/v2/D4E03AQHTotujK0-kBg/profile-displayphoto-shrink_200_200/0/1658766761944?e=1739404800&v=beta&t=MD8vmHV0tYod_U3VTTdSfB4Yq4e0HKOR75dISJJJ614) | [GitHub](https://github.com/ramzy1453) |
+| **Adem Menhouri**   | ![Adem Menhouri](https://avatars.githubusercontent.com/u/99109702?v=4)                                             | [GitHub](https://github.com/ademmenh) |
+| **Wail Bentafat**   | ![Wail Bentafat](https://media.licdn.com/dms/image/D4E35AQEK5c6RpLeIJw/profile-framedphoto-shrink_200_200/0/1680114377342?e=1734777600&v=beta&t=_iHOpH6eSUPEM2kbfQ8ivhbP5syZ7zYIZbFMhQkPCcA) | [GitHub](https://github.com/wailbentafat) |
+
+---
+
 ## 📄 License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
