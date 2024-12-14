@@ -5,20 +5,19 @@ import google from "next-auth/providers/google";
 
 // scope
 const authOptions: AuthOptions = {
-  
   providers: [
     google({
       clientId: process.env.GOOGLE_ID!,
       clientSecret: process.env.GOOGLE_SECRET!,
       authorization: {
         params: {
-          scope: 'openid profile email',         
+          scope: "openid profile email",
         },
       },
-    }),   
+    }),
   ],
   callbacks: {
-    async session({ session, token }) {
+    async session({ session }) {
       return session;
     },
   },
