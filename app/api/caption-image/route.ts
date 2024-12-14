@@ -11,7 +11,7 @@ function base64ToArrayBuffer(base64: string) {
   }
   return Buffer.from(byteArray.buffer).toString("base64");
 }
-const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GOOGLE_API_KEY!);
+const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY!);
 const model = genAI.getGenerativeModel({
   model: "gemini-1.5-flash",
   generationConfig: {
