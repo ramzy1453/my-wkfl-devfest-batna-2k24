@@ -8,8 +8,8 @@ type Flow = {
   addEdge: (edge: Edge) => void;
   setNodes: (nodes: Node[]) => void;
   setEdges: (edges: Edge[]) => void;
-  nodeValues: Record<string, string>;
-  setNodeValues: (key: string, value: string) => void;
+  nodeValues: Record<string, string | number | object>;
+  setNodeValues: (key: string, value: string | object | number) => void;
 };
 
 export const useFlow = create<Flow>((set) => ({

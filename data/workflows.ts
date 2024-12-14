@@ -111,10 +111,10 @@ export const nodeTypesData = [
     icon: FileImage,
   },
   {
-    name: "Gmail Sender",
-    description: "Send emails through Gmail",
+    name: "Email Sender",
+    description: "Send emails through google mail",
     logo: "/assets/logos/gmail.png",
-    type: "gmailSender",
+    type: "email",
     icon: Mail,
   },
   {

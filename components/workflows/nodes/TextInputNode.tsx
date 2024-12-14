@@ -24,17 +24,22 @@ export default function TextInputNode({ data }: Props) {
   );
 
   return (
-    <div className={cn(
-      "w-48 bg-background border rounded-md shadow-sm transition-all duration-200",
-      isFocused ? "border-primary ring-2 ring-primary/20" : "border-border"
-    )}>
-      <Handle 
-        type="target" 
-        position={Position.Top} 
+    <div
+      className={cn(
+        "w-48 bg-background border rounded-md shadow-sm transition-all duration-200",
+        isFocused ? "border-primary ring-2 ring-primary/20" : "border-border"
+      )}
+    >
+      <Handle
+        type="target"
+        position={Position.Top}
         className="w-3 h-3 bg-primary border-2 border-background top-0 -translate-y-1/2"
       />
       <div className="p-2 space-y-1">
-        <Label htmlFor={`text-${data.id}`} className="text-xs font-medium text-muted-foreground">
+        <Label
+          htmlFor={`text-${data.id}`}
+          className="text-xs font-medium text-muted-foreground"
+        >
           {data.label}
         </Label>
         <Input
@@ -47,9 +52,9 @@ export default function TextInputNode({ data }: Props) {
           placeholder="Enter text..."
         />
       </div>
-      <Handle 
-        type="source" 
-        position={Position.Bottom} 
+      <Handle
+        type="source"
+        position={Position.Bottom}
         id="a"
         className="w-3 h-3 bg-primary border-2 border-background bottom-0 translate-y-1/2"
       />
@@ -62,4 +67,3 @@ export default function TextInputNode({ data }: Props) {
     </div>
   );
 }
-

@@ -34,7 +34,7 @@ export function CalendarHeader({
           <ChevronRight className="h-4 w-4" />
         </Button>
       </div>
-      <div className="flex gap-1 bg-zinc-800 rounded-lg p-1">
+      <div className="flex gap-1 bg-background rounded-lg p-1">
         {views.map((v) => (
           <Button
             key={v}

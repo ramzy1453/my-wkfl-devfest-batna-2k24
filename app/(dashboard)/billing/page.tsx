@@ -1,15 +1,21 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Progress } from "@/components/ui/progress"
-import { Badge } from "@/components/ui/badge"
-import { Switch } from "@/components/ui/switch"
-import { ArrowRight, Check, X } from 'lucide-react'
+import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
+import { Switch } from "@/components/ui/switch";
+import { ArrowRight, Check } from "lucide-react";
 
 export default function UserBillingDashboard() {
-  const [isPremium, setIsPremium] = useState(false)
+  const [isPremium, setIsPremium] = useState(false);
 
   const plans = [
     {
@@ -19,8 +25,8 @@ export default function UserBillingDashboard() {
         "Social Media API Access",
         "Gemini Text Generation",
         "Basic Analytics",
-        "1 Workflow"
-      ]
+        "1 Workflow",
+      ],
     },
     {
       name: "Premium",
@@ -29,17 +35,17 @@ export default function UserBillingDashboard() {
         "All Free Features",
         "Unlimited Workflows",
         "Advanced Analytics",
-        "Priority Support"
-      ]
-    }
-  ]
+        "Priority Support",
+      ],
+    },
+  ];
 
   const usage = {
     apiCalls: 8500,
     apiLimit: isPremium ? 100000 : 10000,
     workflows: isPremium ? 5 : 1,
-    workflowLimit: isPremium ? -1 : 1
-  }
+    workflowLimit: isPremium ? -1 : 1,
+  };
 
   return (
     <div className="p-6 space-y-6">
@@ -47,15 +53,25 @@ export default function UserBillingDashboard() {
         <CardHeader>
           <CardTitle>Your Plan</CardTitle>
           <CardDescription>
-            {isPremium ? "You're on the Premium plan" : "You're on the Free plan"}
+            {isPremium
+              ? "You're on the Premium plan"
+              : "You're on the Free plan"}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex justify-between items-start">
             {plans.map((plan) => (
-              <div key={plan.name} className={`w-[48%] p-4 rounded-lg ${plan.name === "Premium" ? "bg-primary/10" : "bg-muted"}`}>
+              <div
+                key={plan.name}
+                className={`w-[48%] p-4 rounded-lg ${
+                  plan.name === "Premium" ? "bg-primary/10" : "bg-muted"
+                }`}
+              >
                 <h3 className="text-lg font-semibold mb-2">{plan.name}</h3>
-                <p className="text-2xl font-bold mb-4">{plan.price}<span className="text-sm font-normal">/month</span></p>
+                <p className="text-2xl font-bold mb-4">
+                  {plan.price}
+                  <span className="text-sm font-normal">/month</span>
+                </p>
                 <ul className="space-y-2">
                   {plan.features.map((feature, index) => (
                     <li key={index} className="flex items-center">
@@ -80,24 +96,35 @@ export default function UserBillingDashboard() {
       <Card>
         <CardHeader>
           <CardTitle>Your Usage</CardTitle>
-          <CardDescription>Track your API calls and workflow usage</CardDescription>
+          <CardDescription>
+            Track your API calls and workflow usage
+          </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div>
             <div className="flex justify-between mb-2">
               <span className="text-sm font-medium">API Calls</span>
-              <span className="text-sm font-medium">{usage.apiCalls} / {usage.apiLimit}</span>
+              <span className="text-sm font-medium">
+                {usage.apiCalls} / {usage.apiLimit}
+              </span>
             </div>
-            <Progress value={(usage.apiCalls / usage.apiLimit) * 100} className="h-2" />
+            <Progress
+              value={(usage.apiCalls / usage.apiLimit) * 100}
+              className="h-2"
+            />
           </div>
           <div>
             <div className="flex justify-between mb-2">
               <span className="text-sm font-medium">Workflows</span>
-              <span className="text-sm font-medium">{usage.workflows} / {usage.workflowLimit}</span>
+              <span className="text-sm font-medium">
+                {usage.workflows} / {usage.workflowLimit}
+              </span>
             </div>
-            <Progress 
-              value={isPremium ? 50 : (usage.workflows / usage.workflowLimit) * 100} 
-              className="h-2" 
+            <Progress
+              value={
+                isPremium ? 50 : (usage.workflows / usage.workflowLimit) * 100
+              }
+              className="h-2"
             />
           </div>
         </CardContent>
@@ -111,7 +138,9 @@ export default function UserBillingDashboard() {
           <div className="flex items-center justify-between">
             <div>
               <p className="font-medium">Auto-renew subscription</p>
-              <p className="text-sm text-muted-foreground">Automatically renew your plan</p>
+              <p className="text-sm text-muted-foreground">
+                Automatically renew your plan
+              </p>
             </div>
             <Switch checked={isPremium} onCheckedChange={setIsPremium} />
           </div>
@@ -127,10 +156,11 @@ export default function UserBillingDashboard() {
           </div>
         </CardContent>
         <CardFooter>
-          <Button variant="outline" className="w-full">Update Payment Method</Button>
+          <Button variant="outline" className="w-full">
+            Update Payment Method
+          </Button>
         </CardFooter>
       </Card>
     </div>
-  )
+  );
 }
-

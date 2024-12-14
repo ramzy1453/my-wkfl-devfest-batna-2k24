@@ -1,10 +1,11 @@
 "use client";
 
 import { useFlow } from "@/store/flow";
-import { type LucideIcon } from 'lucide-react';
+import { type LucideIcon } from "lucide-react";
 import React from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
+import { Position } from "@xyflow/react";
 
 type Props = {
   icon: LucideIcon;
@@ -30,6 +31,8 @@ export default function FlowCard({
       },
       position: { x: 100, y: 100 },
       type,
+      sourcePosition: Position.Right,
+      targetPosition: Position.Left,
     });
     closeDialog();
   };
@@ -40,7 +43,7 @@ export default function FlowCard({
       whileTap={{ scale: 0.95 }}
       transition={{ type: "spring", stiffness: 400, damping: 17 }}
     >
-      <Card 
+      <Card
         className="cursor-pointer overflow-hidden group"
         onClick={onAddNode}
       >
@@ -50,7 +53,9 @@ export default function FlowCard({
             <Icon className="w-6 h-6 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-primary group-hover:scale-110 transition-transform duration-300" />
           </div>
           <div className="space-y-1 flex-grow">
-            <h3 className="font-semibold text-lg group-hover:text-primary transition-colors duration-300">{name}</h3>
+            <h3 className="font-semibold text-lg group-hover:text-primary transition-colors duration-300">
+              {name}
+            </h3>
             <p className="text-muted-foreground text-sm">{description}</p>
           </div>
           <motion.div
@@ -65,4 +70,3 @@ export default function FlowCard({
     </motion.div>
   );
 }
-

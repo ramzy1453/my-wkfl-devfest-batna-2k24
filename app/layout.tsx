@@ -13,13 +13,14 @@ export const metadata: Metadata = {
   description: "MyWkfl helps you manage your workflows",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
-  params: { session },
+  params,
 }: Readonly<{
   children: React.ReactNode;
-  params: { session?: Session | null };
+  params: Promise<{ session?: Session | null }>;
 }>) {
+  const { session } = await params;
   return (
     <html lang="en">
       <body className={inter.className}>
