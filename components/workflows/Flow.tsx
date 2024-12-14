@@ -64,16 +64,19 @@ function Flow() {
 
     if (!base64EncodedImage) return;
     try {
-      const response = await fetch("http://localhost:3000/api/caption-image", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          base64EncodedImage,
-          prompt: "analyse-product",
-        }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/caption-image`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            base64EncodedImage,
+            prompt: "analyse-product",
+          }),
+        }
+      );
 
       const data = await response.json();
       const json = JSON.parse(
@@ -88,15 +91,17 @@ function Flow() {
   }
 
   async function onSendEmail(messageData: Product) {
-    const response = await fetch("http://localhost:3000/api/email", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: "MyWkfl",
-        to,
-        message: `
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/email`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: "MyWkfl",
+          to,
+          message: `
           <div>
               <div>
                 <h3>Generated product with success : ${messageData.product}</h3>
@@ -110,9 +115,10 @@ function Flow() {
               </div>
           </div>
         `,
-        subject,
-      }),
-    });
+          subject,
+        }),
+      }
+    );
 
     const data = await response.json();
     if (data?.mail?.accepted?.length > 0) {
