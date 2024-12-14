@@ -1,24 +1,27 @@
 // in auth.ts
 
 import { AuthOptions, getServerSession } from "next-auth";
-import Facebook from "next-auth/providers/facebook";
+import google from "next-auth/providers/google";
 
 // scope
 const authOptions: AuthOptions = {
-  // Configure one or more authentication providers
+  
   providers: [
-    Facebook({
-      clientId: process.env.FACEBOOK_ID!,
-      clientSecret: process.env.FACEBOOK_SECRET!,
+    google({
+      clientId: process.env.GOOGLE_ID!,
+      clientSecret: process.env.GOOGLE_SECRET!,
       authorization: {
         params: {
-          scope: "public_profile",
+          scope: 'openid profile email',         
         },
       },
-    }),
-
-    // ...add more providers here
+    }),   
   ],
+  callbacks: {
+    async session({ session, token }) {
+      return session;
+    },
+  },
 };
 
 /**
