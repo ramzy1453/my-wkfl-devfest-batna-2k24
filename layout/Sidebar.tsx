@@ -8,11 +8,11 @@ import {
   ShieldCheckIcon,
 } from "lucide-react";
 import React, { useState } from "react";
-import Logo from "@/components/workflows/dialogs/Logo";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import Logo from "@/components/workflows/dialogs/Logo";
 
 const routes = [
   {

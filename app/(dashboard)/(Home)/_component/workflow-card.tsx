@@ -25,12 +25,12 @@ export function WorkflowCard({
       transition={{ type: "spring", stiffness: 300 }}
     >
       <Card
-        className="bg-zinc-900 cursor-pointer h-[140px] transition-colors hover:bg-zinc-800"
+        className="bg-background cursor-pointer h-[140px] transition-colors hover:bg-background/80"
         onClick={onClick}
       >
         <CardHeader>
-          <CardTitle className="text-zinc-100">{title}</CardTitle>
-          <CardDescription className="text-zinc-400">
+          <CardTitle className="text-foreground">{title}</CardTitle>
+          <CardDescription className="text-muted-foreground">
             {description}
           </CardDescription>
         </CardHeader>

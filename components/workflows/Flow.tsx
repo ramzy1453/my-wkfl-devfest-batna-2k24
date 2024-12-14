@@ -181,7 +181,7 @@ function Flow() {
           width: "100vw",
         }}
       >
-        <Button onClick={runScheduler} className="text-foreground">
+        <Button onClick={runScheduler} className="text-black">
           Run pipeline
         </Button>
         <ReactFlow
