@@ -5,7 +5,6 @@ import { type LucideIcon } from "lucide-react";
 import React from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
-import { Position } from "@xyflow/react";
 
 type Props = {
   icon: LucideIcon;
@@ -31,8 +30,6 @@ export default function FlowCard({
       },
       position: { x: 100, y: 100 },
       type,
-      sourcePosition: Position.Right,
-      targetPosition: Position.Left,
     });
     closeDialog();
   };

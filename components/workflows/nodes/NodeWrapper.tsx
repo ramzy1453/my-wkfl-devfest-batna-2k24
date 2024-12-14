@@ -28,7 +28,7 @@ export function NodeWrapper({
         <Handle
           key={`input-${i}`}
           type="target"
-          position={Position.Right}
+          position={Position.Top}
           id={`input-${i}`}
           style={{ left: `${((i + 1) / (inputs + 1)) * 100}%` }}
         />
@@ -37,7 +37,7 @@ export function NodeWrapper({
         <Handle
           key={`output-${i}`}
           type="source"
-          position={Position.Left}
+          position={Position.Bottom}
           id={`output-${i}`}
           style={{ left: `${((i + 1) / (outputs + 1)) * 100}%` }}
         />

@@ -15,6 +15,7 @@ type Props = {
 export default function TextInputNode({ data }: Props) {
   const setNodeValues = useFlow((state) => state.setNodeValues);
   const [isFocused, setIsFocused] = useState(false);
+ 
 
   const onChange: ChangeEventHandler<HTMLInputElement> = useCallback(
     (e) => {

@@ -27,7 +27,9 @@ import { SchedulerNode } from "./nodes/SchedulerNode";
 import { toast } from "sonner";
 import { EmailNode } from "./nodes/EmailNode";
 import { useMail } from "@/store/mail";
+import GenerativeDialog from "./dialogs/GenerativeDialog";
 
+//how this pipeline normaly work we have pile of nodes and edges we fill the pill we virify if it on the top we start linking the iput and
 function Flow() {
   // const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   // const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
@@ -40,6 +42,7 @@ function Flow() {
   const nodeValues = useFlow((state) => state.nodeValues);
   const setNodeValues = useFlow((state) => state.setNodeValues);
   const [output, setOutput] = useState<Product>();
+  const [open, setOpen] = useState(false);
 
   function runScheduler() {
     const scheduler = nodeValues["Scheduler"];
@@ -58,6 +61,9 @@ function Flow() {
   }
   async function runPipeline() {
     console.log({ nodeValues });
+
+    runIt();
+
     const base64EncodedImage = nodeValues["Image Uploader"];
 
     // const prompt = nodeValues["Generate Text"];
@@ -65,7 +71,7 @@ function Flow() {
     if (!base64EncodedImage) return;
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/caption-image`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/caption-image`,
         {
           method: "POST",
           headers: {
@@ -89,10 +95,54 @@ function Flow() {
       console.log({ error });
     }
   }
+  async function runIt() {
+    console.log(`${process.env.NEXT_PUBLIC_API_URL}/api/products`);
+
+    const input = nodeValues["text input"];
+    console.log({ input });
+    if (!input) return;
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/generate-text`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            prompt: input,
+          }),
+        }
+      );
+      console.log(response);
+      const data = await response.json();
+      const json = JSON.parse(
+        data.output.replace("json", "").replaceAll("\n", "").replaceAll("`", "")
+      ) as Product;
+
+      console.log(`${process.env.NEXT_PUBLIC_API_URL}/api/products`);
+      const appendInFileResponse = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/products`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(json),
+        }
+      );
+      setOpen(true);
+      console.log({ appendInFileResponse });
+      toast.success(`product ${json.product} up
+        loaded successfully`);
+    } catch (error) {
+      console.log({ error });
+    }
+  }
 
   async function onSendEmail(messageData: Product) {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/email`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/email`,
       {
         method: "POST",
         headers: {
@@ -174,6 +224,14 @@ function Flow() {
         setOutput={(value) => {
           setOutput(value);
         }}
+      />
+      <GenerativeDialog
+        open={open}
+        setOpen={(value: boolean) => {
+          setOpen(value);
+        }}
+        title="Generated Products"
+        description="List of generated products from the pipeline execution"
       />
       <div
         style={{
