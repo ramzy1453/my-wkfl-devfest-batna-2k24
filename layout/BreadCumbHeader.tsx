@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -12,7 +12,6 @@ import {
   Layers2Icon,
   MenuIcon,
   ShieldCheckIcon,
-  X,
 } from "lucide-react";
 import Logo from "@/components/workflows/dialogs/Logo";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -39,27 +38,24 @@ const routes = [
 export default function ResponsiveBreadcrumbHeader() {
   const [isOpen, setIsOpen] = useState(false);
 
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 768) setIsOpen(false);
+      else setIsOpen(true);
+    });
+  }, []);
   return (
     <div className="flex items-center justify-between p-4">
       <div className="flex items-center">
         <Logo />
 
-        {/* Desktop Breadcrumb */}
-        <Breadcrumb className="hidden md:flex ml-4">
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink
-                href="/"
-                className="capitalize text-lg font-medium px-2"
-              >
-                Home
-              </BreadcrumbLink>
-            </BreadcrumbItem>
+        <Breadcrumb className="hidden md:flex ml-8">
+          <BreadcrumbList className="space-x-2 ml-3">
             {routes.map((route, index) => (
               <BreadcrumbItem key={index}>
                 <BreadcrumbLink
                   href={route.href}
-                  className="capitalize text-lg font-medium px-2"
+                  className="capitalize text-lg font-medium"
                 >
                   {route.label}
                 </BreadcrumbLink>
@@ -69,29 +65,24 @@ export default function ResponsiveBreadcrumbHeader() {
         </Breadcrumb>
       </div>
 
-      {/* Mobile Menu */}
+      {/* mobile version */}
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
-        <SheetTrigger asChild>
-          <Button variant="ghost" size="icon" className="md:hidden">
-            <MenuIcon className="h-6 w-6" />
-          </Button>
-        </SheetTrigger>
-        <SheetContent side="left" className="w-[300px] sm:w-[400px]">
+        {isOpen && (
+          <SheetTrigger asChild>
+            <Button variant="ghost" size="icon" className="md:hidden">
+              <MenuIcon className="h-6 w-6" />
+            </Button>
+          </SheetTrigger>
+        )}
+        <SheetContent side="left" className="w-[400px] sm:w-[600px]">
           <div className="flex flex-col h-full">
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center justify-between">
               <Logo />
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setIsOpen(false)}
-              >
-                <X className="h-6 w-6" />
-              </Button>
             </div>
             <nav className="flex flex-col space-y-4">
               <BreadcrumbLink
                 href="/"
-                className="flex items-center space-x-2 text-lg font-medium"
+                className="flex items-center my-2 space-x-2 text-lg font-medium"
               >
                 <Layers2Icon className="h-5 w-5" />
                 <span>Home</span>
