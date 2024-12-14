@@ -99,7 +99,7 @@ function Flow() {
         message: `
           <div>
               <div>
-                <h3>Generated product with success</h3>
+                <h3>Generated product with success : ${messageData.product}</h3>
                   <div
                     style="background-color: ${messageData.color}; width:48px; height:48px"
                   ></div>
