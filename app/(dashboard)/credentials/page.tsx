@@ -3,6 +3,7 @@
 import { Card } from "@/components/ui/card"
 import { Facebook, Instagram, Mail, MessageSquare, ShoppingBag, Store, Truck, BarChart3, Bot, Search, CreditCard } from 'lucide-react'
 import Link from 'next/link'
+import { signIn } from "next-auth/react"
 
 export default function CredentialCards() {
   const services = [
@@ -24,7 +25,13 @@ export default function CredentialCards() {
       {services.map((service) => {
         const Icon = service.icon
         return (
-          <Link href={service.link} key={service.name}>
+          
+          <button onClick={function(){
+            if (service.name === 'Google') {signIn()}else{
+              window.location.href = service.link
+            }
+          }}  key={service.name}>
+            
             <Card 
               className={`
                 p-6 cursor-pointer
@@ -50,7 +57,7 @@ export default function CredentialCards() {
                 </div>
               </div>
             </Card>
-          </Link>
+          </button>
         )
       })}
     </div>
