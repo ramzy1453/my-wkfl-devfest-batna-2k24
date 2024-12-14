@@ -6,10 +6,8 @@ import ThemeToggle from "@/components/ThemeToggle";
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex h-screen">
-      {/* <DesktopSidebar />. */}
-
       <div className="flex flex-col flex-[4]">
-        <header className="flex items-center justify-between px-6 py-4 h-[64px]">
+        <header className="flex items-center justify-between px-6 py-4 h-[64px] shadow-lg border-b-2">
           <BreadcrumbHeader />
           <div className="flex items-center gap-1">
             <ThemeToggle />
