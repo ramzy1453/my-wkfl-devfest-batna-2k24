@@ -36,14 +36,6 @@ function UserworkflowSkeleton() {
   );
 }
 function UserWorkflows() {
-  // const {data , error, isLoading } = useQuery({
-  //   queryKey: ["workflows"],
-  //   queryFn: () => Workflowaction.fetchAll(),
-  // });
-  // const workflow = data as Workflows[];
-  // console.log(workflow);
-  // console.log(error);
-  // console.log(isLoading);
   const workflows = [
     {
       id: "1",
@@ -81,7 +73,6 @@ function UserWorkflows() {
     );
   }
   if (workflows.length == 0) {
-    //change to workflow
     return (
       <div className="flex flex-col gap-4 h-full items-center justify-center">
         <div className="rounded-full bg-accent w-20 h-20 flex items-center justify-center">

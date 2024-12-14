@@ -29,8 +29,8 @@ export function sendMail({ name, from, subject, text, to }: Mail) {
         subject,
         html: `
         <div>
-          <h2><Send From:> ${from} - ${name}</h2>
-          <p>${text}</p>
+          <p><Send From:> ${from} - ${name}</p>
+          <div>${text}</div>
         </div>
         `,
       },

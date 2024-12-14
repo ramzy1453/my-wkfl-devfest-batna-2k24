@@ -26,6 +26,7 @@ import { ChatGPTNode } from "./nodes/ChatGPTNode";
 import { SchedulerNode } from "./nodes/SchedulerNode";
 import { toast } from "sonner";
 import { EmailNode } from "./nodes/EmailNode";
+import { useMail } from "@/store/mail";
 
 function Flow() {
   // const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
@@ -33,6 +34,8 @@ function Flow() {
 
   const nodes = useFlow((state) => state.nodes);
   const edges = useFlow((state) => state.edges);
+  const to = useMail((state) => state.to);
+  const subject = useMail((state) => state.subject);
 
   const nodeValues = useFlow((state) => state.nodeValues);
   const setNodeValues = useFlow((state) => state.setNodeValues);
@@ -78,8 +81,44 @@ function Flow() {
       ) as Product;
       setOutput({ ...json, base64EncodedImage: base64EncodedImage as string });
       setNodeValues("Generated Description", json);
+      onSendEmail(json);
     } catch (error) {
       console.log({ error });
+    }
+  }
+
+  async function onSendEmail(messageData: Product) {
+    const response = await fetch("http://localhost:3000/api/email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: "MyWkfl",
+        to,
+        message: `
+          <div>
+              <div>
+                <h3>Generated product with success</h3>
+                  <div
+                    style="background-color: ${messageData.color}; width:48px; height:48px"
+                  ></div>
+                  <div>
+                    <p>Color : <span style="color: ${messageData.color}">${messageData.color}</span></p>
+                    <p>Description : ${messageData.description}</p>
+                  </div>
+              </div>
+          </div>
+        `,
+        subject,
+      }),
+    });
+
+    const data = await response.json();
+    if (data?.mail?.accepted?.length > 0) {
+      toast.success("Email sent successfully to " + to);
+    } else {
+      toast.error("Failed to send email to " + to);
     }
   }
 

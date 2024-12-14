@@ -7,7 +7,7 @@ type Email = {
   setSubject: (subject: string) => void;
 };
 
-export const useFlow = create<Email>((set) => ({
+export const useMail = create<Email>((set) => ({
   edges: [],
   nodes: [],
   to: "",
