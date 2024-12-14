@@ -51,6 +51,7 @@
     "date-fns": "^3.6.0",
     "embla-carousel-react": "^8.5.1",
     "framer-motion": "^11.14.1",
+    "google-spreadsheet": "^4.1.4",
     "input-otp": "^1.4.1",
     "instagram-private-api": "^1.46.1",
     "lodash": "^4.17.21",
