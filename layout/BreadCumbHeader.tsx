@@ -45,17 +45,16 @@ export default function ResponsiveBreadcrumbHeader() {
     });
   }, []);
   return (
-    <div className="flex items-center justify-between p-4">
-      <div className="flex items-center">
+    <div className="flex items-center justify-center flex-1 p-4">
+      <div className="flex justify-between items-center w-full">
         <Logo />
-
-        <Breadcrumb className="hidden md:flex ml-8">
+        <Breadcrumb className="hidden md:flex ml-8 justify-center items-center">
           <BreadcrumbList className="space-x-2 ml-3">
             {routes.map((route, index) => (
               <BreadcrumbItem key={index}>
                 <BreadcrumbLink
                   href={route.href}
-                  className="capitalize text-lg font-medium"
+                  className="capitalize text-lg font-bold"
                 >
                   {route.label}
                 </BreadcrumbLink>
@@ -63,6 +62,7 @@ export default function ResponsiveBreadcrumbHeader() {
             ))}
           </BreadcrumbList>
         </Breadcrumb>
+        <div className="w-12 h-12"></div>
       </div>
 
       {/* mobile version */}
