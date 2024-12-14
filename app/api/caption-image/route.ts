@@ -2,18 +2,13 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextRequest, NextResponse } from "next/server";
 function base64ToArrayBuffer(base64: string) {
-  // Décoder la chaîne Base64 (après la virgule)
   const binaryString = atob(base64.split(",")[1]);
 
-  // Créer un tableau d'octets (Uint8Array) de la longueur de la chaîne binaire
   const byteArray = new Uint8Array(binaryString.length);
 
-  // Remplir le tableau avec les codes de caractères
   for (let i = 0; i < binaryString.length; i++) {
     byteArray[i] = binaryString.charCodeAt(i);
   }
-
-  // Retourner le buffer sous-jacent
   return Buffer.from(byteArray.buffer).toString("base64");
 }
 const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GOOGLE_API_KEY!);
@@ -27,13 +22,9 @@ const model = genAI.getGenerativeModel({
     responseMimeType: "text/plain",
   },
 });
-// Create an asynchronous function POST to handle POST
-// request with parameters request and response.
 export async function POST(request: NextRequest) {
   const body = await request.json();
   try {
-    // Access your API key by creating an instance of GoogleGenerativeAI we'll call it GenAI
-
     const prompt =
       body.prompt === "analyse-product" ? productPromptTemplate : body.prompt;
 
@@ -52,11 +43,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error });
   }
 }
-
-import { GoogleAIFileManager } from "@google/generative-ai/server";
-
-const apiKey = process.env.NEXT_PUBLIC_GOOGLE_API_KEY!;
-const fileManager = new GoogleAIFileManager(apiKey);
 
 const productPromptTemplate = `
 
