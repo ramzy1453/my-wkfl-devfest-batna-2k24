@@ -76,7 +76,7 @@ export function ChatInterface() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Message AIGPT..."
-            className="pr-12 bg-zinc-800 border-zinc-700"
+            className="text-white pr-12 bg-zinc-800 border-zinc-700"
             rows={1}
           />
           <Button
