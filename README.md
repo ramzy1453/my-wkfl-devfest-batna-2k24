@@ -146,13 +146,21 @@ We welcome contributions! Here's how you can help:
 
 ---
 
-## 🌟 Authors
+## 🌟 Meet the Authors
 
-| **Author**          | **Picture**                                                                                                        | **GitHub**                          |
-|---------------------|--------------------------------------------------------------------------------------------------------------------|-------------------------------------|
-| **Ramzy Kemmoun**   | ![Ramzy Kemmoun](https://media.licdn.com/dms/image/v2/D4E03AQHTotujK0-kBg/profile-displayphoto-shrink_200_200/0/1658766761944?e=1739404800&v=beta&t=MD8vmHV0tYod_U3VTTdSfB4Yq4e0HKOR75dISJJJ614) | [GitHub](https://github.com/ramzy1453) |
-| **Adem Menhouri**   | ![Adem Menhouri](https://avatars.githubusercontent.com/u/99109702?v=4)                                             | [GitHub](https://github.com/ademmenh) |
-| **Wail Bentafat**   | ![Wail Bentafat](https://media.licdn.com/dms/image/D4E35AQEK5c6RpLeIJw/profile-framedphoto-shrink_200_200/0/1680114377342?e=1734777600&v=beta&t=_iHOpH6eSUPEM2kbfQ8ivhbP5syZ7zYIZbFMhQkPCcA) | [GitHub](https://github.com/wailbentafat) |
+<table>
+  <tr>
+  <td align="center">
+      <a href = "https://github.com/ramzy1453"><img src="https://avatars.githubusercontent.com/u/96486453?v=4" width="72" alt="Badla Moussaab" /></a>
+    </td>
+    <td align="center">
+      <a href = "https://github.com/wailbentafat"><img  src="https://avatars.githubusercontent.com/u/150479778?v=4" width="72" alt="Slimane Houache" /></a>
+    </td>
+    <td align="center">
+      <a href = "https://github.com/ademmenh"><img  src="https://avatars.githubusercontent.com/u/150479331?v=4" width="72" alt="Heddouche Amine" /></a>
+    </td>
+  </tr> 
+</table>
 
 ---
 
@@ -167,4 +175,3 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 We’d love to hear your feedback! If you encounter any issues or have suggestions, feel free to [open an issue](https://github.com/ramzy1453/MyWkfl/issues).
 
 Let’s transform workflows together! 🚀
-
