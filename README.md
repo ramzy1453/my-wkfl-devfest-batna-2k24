@@ -151,13 +151,13 @@ We welcome contributions! Here's how you can help:
 <table>
   <tr>
   <td align="center">
-      <a href = "https://github.com/ramzy1453"><img src="https://avatars.githubusercontent.com/u/96486453?v=4" width="72" alt="Badla Moussaab" /></a>
+      <a href = "https://github.com/ramzy1453"><img src="https://avatars.githubusercontent.com/u/96486453?v=4" width="72" alt="Kemmoun Ramzy" /></a>
     </td>
     <td align="center">
-      <a href = "https://github.com/wailbentafat"><img  src="https://avatars.githubusercontent.com/u/150479778?v=4" width="72" alt="Slimane Houache" /></a>
+      <a href = "https://github.com/wailbentafat"><img  src="https://avatars.githubusercontent.com/u/150479778?v=4" width="72" alt="Wail Bentafat" /></a>
     </td>
     <td align="center">
-      <a href = "https://github.com/ademmenh"><img  src="https://avatars.githubusercontent.com/u/150479331?v=4" width="72" alt="Heddouche Amine" /></a>
+      <a href = "https://github.com/ademmenh"><img  src="https://avatars.githubusercontent.com/u/150479331?v=4" width="72" alt="Adem Menhour" /></a>
     </td>
   </tr> 
 </table>
