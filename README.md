@@ -107,7 +107,7 @@ Follow these steps to get started with MyWkfl:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/MyWkfl.git
+   git clone https://github.com/ramzy1453/my-wkfl-devfest-batna-2k24.git
    ```
 2. Navigate to the project directory:
    ```bash
